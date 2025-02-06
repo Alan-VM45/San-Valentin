@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000; /* Fondo negro */
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            cursor: url('https://www.transparenttextures.com/patterns/heart-cursor.png'), auto;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hearts span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url('https://www.transparenttextures.com/patterns/heart.png');
+            background-size: cover;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out, glow 2s infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 20px #8A2BE2;
+            }
+            100% {
+                text-shadow: 0 0 10px #9400D3, 0 0 20px #9400D3, 0 0 30px #9400D3;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            background-color: transparent;
+            color: #8A2BE2; /* Violeta */
+            border: 2px solid #8A2BE2;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px #8A2BE2, 0 0 20px #8A2BE2;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #9400D3, 0 0 40px #9400D3;
+        }
+
+        button:disabled {
+            opacity: 0.5; /* Hace que el botón se vea deshabilitado */
+            cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+        }
+
+        #noButton {
+            position: static; /* Cambia a static para que esté en el flujo normal */
+        }
+
+        .batman {
+            margin-top: 20px;
+            font-size: 50px;
+            display: none; /* Oculto por defecto */
+        }
+
+        .batman img {
+            width: 200px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .sorpresa {
+            display: none;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            animation: fadeInMessage 1s ease-in-out;
+        }
+
+        @keyframes fadeInMessage {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .stars span {
+            position: absolute;
+            display: block;
+            width: 2px;
+            height: 2px;
+            background: #8A2BE2; /* Estrellas violetas */
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .explosion {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('https://www.transparenttextures.com/patterns/heart.png');
+            background-size: cover;
+            animation: explode 1s ease-out;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+
+            .batman img {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">
+        <!-- Generar corazones -->
+        <script>
+            function crearCorazones() {
+                for (let i = 0; i < 50; i++) {
+                    let heart = document.createElement('span');
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    heart.style.width = Math.random() * 20 + 10 + 'px';
+                    heart.style.height = heart.style.width;
+                    document.querySelector('.hearts').appendChild(heart);
+                }
+            }
+            crearCorazones();
+        </script>
+    </div>
+
+    <div class="stars">
+        <!-- Generar estrellas -->
+        <script>
+            function crearEstrellas() {
+                for (let i = 0; i < 200; i++) {
+                    let star = document.createElement('span');
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.top = Math.random() * 100 + 'vh';
+                    star.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    document.querySelector('.stars').appendChild(star);
+                }
+            }
+            crearEstrellas();
+        </script>
+    </div>
+
+    <div class="content">
+        <h1>¿Quieres ser mi San Valentín?</h1>
+        <div class="buttons">
+            <button onclick="mostrarMensaje()">¡Sí!</button>
+            <button id="noButton" onclick="moverNoButton()">No</button>
+        </div>
+        <div class="batman">
+            <img src="/img/batman.jpg" alt="Batman Logo">
+        </div>
+        <p id="mensajeGracias" class="sorpresa">Gracias!! Te amo mi vida, Me haces muy feliz 💜🦇</p>
+        <p id="mensaje" class="sorpresa"></p>
+        <p id="contador"></p>
+    </div>
+
+    <audio autoplay loop>
+        <source src="/music/Until I Found You - Stephen Sanchez [Español  Lyrics].mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+          function iniciarMusica() {
+        let audio = document.querySelector("audio");
+        audio.play().catch(error => console.log("Autoplay bloqueado:", error));
+        }
+
+        const mensajes = [
+            "Eres mi heroína, mi Catwoman, mi todo! 💜🦇",
+            "Contigo, cada día es una aventura. 💜",
+            "Eres la razón por la que creo en el amor. 💜",
+            "Batman necesita a Catwoman, y yo te necesito a ti. 💜🦇",
+            "Eres mi luz en la oscuridad de Gotham. 💜"
+        ];
+
+        function mostrarMensaje() {
+            iniciarMusica();
+            // Muestra la imagen de Batman
+            document.querySelector('.batman').style.display = 'block';
+
+            // Muestra el mensaje de gracias
+            document.getElementById('mensajeGracias').style.display = 'block';
+
+            // Muestra un mensaje romántico aleatorio
+            const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
+            document.getElementById('mensaje').textContent = mensaje;
+            document.getElementById('mensaje').style.display = 'block';
+
+            // Deshabilita el botón de "No"
+            document.getElementById('noButton').disabled = true;
+
+            // Lanza la explosión de corazones
+            crearExplosion();
+        }
+
+        function crearExplosion() {
+            for (let i = 0; i < 30; i++) {
+                let explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                explosion.style.left = Math.random() * 100 + 'vw';
+                explosion.style.top = Math.random() * 100 + 'vh';
+                explosion.style.animationDuration = Math.random() * 0.5 + 0.5 + 's';
+                document.body.appendChild(explosion);
+                setTimeout(() => {
+                    explosion.remove();
+                }, 1000); // Elimina los corazones después de 1 segundo
+            }
+        }
+
+        function moverNoButton() {
+            const noButton = document.getElementById('noButton');
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.position = 'absolute'; // Cambia a absolute para moverlo
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        }
+
+        const fechaInicio = new Date('2023-12-20'); // Cambia esta fecha
+        setInterval(() => {
+            const ahora = new Date();
+            const diferencia = ahora - fechaInicio;
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            document.getElementById('contador').textContent = `Llevamos juntos ${dias} días. 💜`;
+        }, 1000);
+    </script>
+</body>
+</html>
